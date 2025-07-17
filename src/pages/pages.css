@@ -1,0 +1,10 @@
+main {
+    
+    
+    height: 120vh;
+    background-image: radial-gradient(circle,#d0ffeb 30%,#95ffd3 90%);
+    padding: 40vh 10vh;
+    display: flex;
+    justify-content: center;
+
+}
