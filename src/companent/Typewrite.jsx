@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.css'
-const Typewriter = () => {
-  const phrases = [
+const phrases = [
     "Bilim — kelajakning kalitidir.",
     "Har kun — yangi imkoniyat.",
     "O‘rgan, o‘s, ilhom ber!",
@@ -9,6 +8,8 @@ const Typewriter = () => {
     "Orzu qil, intil, erish!",
     "Bugungi mehnat — ertangi zafar."
   ];
+const Typewriter = () => {
+  
 
   const [text, setText] = useState('');
   const [index, setIndex] = useState(0); // qaysi phrase

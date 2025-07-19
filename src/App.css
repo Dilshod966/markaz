@@ -18,3 +18,16 @@
 .tugma:active {
     transform: scale(0.96);
 }
+
+.inputcha {
+    width: 20rem;
+    height: 3rem;
+    border-radius: 50px;
+    outline: 1px solid #1d917d;
+    border: none;
+    padding: 0 15px;
+    font-size: 1rem;
+}
+.inputcha:focus {
+    box-shadow: 0 0 8px 1px #1d917d;
+}

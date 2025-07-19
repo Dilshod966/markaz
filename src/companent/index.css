@@ -12,7 +12,7 @@ nav {
     z-index: 1000;
 }
 .scrolled {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.685);
     position: fixed;
     box-shadow: 0 0 6px 2px #0F2A47;
 }
@@ -120,3 +120,4 @@ footer iframe {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+

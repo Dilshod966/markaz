@@ -4,10 +4,11 @@ import Students from './pages/Students';
 import Test from './pages/Test';
 import Footer from './companent/Footer';
 import Navbar from './companent/Navbar';
-
+import ScrollToTop from './companent/ScrollToTop';
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
     <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
