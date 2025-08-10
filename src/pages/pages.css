@@ -41,7 +41,7 @@ article {
 
     display: grid;
     grid-template-columns: 2fr 3fr;
-    padding: 14vh 10vw;
+    padding: 15vh 10vw;
 }
 
 article h3 {
@@ -49,6 +49,7 @@ article h3 {
     text-align: center;
     font-size: 1.7rem;
     color: #24B39C;
+    margin-top: 14px;
     text-shadow: 0 0 2px #07965a;
 }
 
@@ -57,7 +58,7 @@ article div {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 2vw 3vw;
+    padding: 1vw 3vw;
     box-shadow:  0 0 10px 2px rgb(201, 201, 201);
     border-radius: 15px;
 }
@@ -262,3 +263,94 @@ article button {
       font-weight: bold;
       color: #007bff;
     }
+
+
+    .select_fan {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    .select_fan h3 {
+      text-align: center;
+    }
+
+    .select_fan select {
+      margin-top: 0;
+    }
+
+    .select_fan input:nth-child(2) {
+      width: 40px;
+      height: 30px;
+      border: none;
+      text-align: center;
+      border-bottom: 1px solid #07965a;
+      outline: none;
+      margin-left: 0.5rem;
+    }
+
+    .select_fan input:nth-child(1) {
+      margin-left: 2rem;
+    }
+    
+
+    .text_info {
+      border: 2.5px dotted #07965a;
+      line-height: 2rem;
+      margin-top: 25px;
+      padding: 0.8rem 1rem;
+    }
+
+    
+
+
+    .hidden-file {
+  display: none;
+}
+.custom-btn {
+  background: #24B39C;
+  color: white;
+  padding: 8px 11px;
+  border-radius: 8px 15px;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 1rem;
+  
+}
+.custom-btn:hover {
+  box-shadow: 0px 0px 5px 2px #24b39b8e;
+  transform: scale(1.04);
+}
+
+
+
+.login_joy {
+  padding: 14vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.login_joy form {
+  height: 300px;
+  border: 3px dotted #24B39C;
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+}
+
+.login_joy input {
+  margin-bottom: 0;
+  width: 80%;
+}
+
+.login_joy h1 {
+  color: #24B39C;
+  margin-bottom: 15px;
+ 
+}

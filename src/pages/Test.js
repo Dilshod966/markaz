@@ -1,5 +1,6 @@
 import '../App.css';
 import { useState } from "react";
+import { BsCopy } from "react-icons/bs";
 
 function Test() {
   const [tanlov, setTanlov] = useState("");
@@ -18,6 +19,51 @@ function Test() {
       .catch(() => {
         alert("Nusxalashda xatolik yuz berdi");
       });
+  };
+
+
+
+  const [value22, setValue22] = useState("");
+  const [value11, setValue11] = useState("");
+
+const handleChange1 = (e) => {
+    // Kiritilgan qiymatdan faqat raqamlarni ajratamiz
+  let num = e.target.value.replace(/\D/g, ""); // faqat 0-9 qoldiradi
+
+  if (num === "") {
+    setValue11("");
+    return;
+  }
+
+  // 100 dan oshmasin
+  if (parseInt(num, 10) > 100) {
+    num = "100";
+  }
+
+  // Oxiriga % qo'shamiz
+  setValue11(num + "%");
+    
+  };
+
+
+
+  const handleChange2 = (e) => {
+    // Kiritilgan qiymatdan faqat raqamlarni ajratamiz
+  let num = e.target.value.replace(/\D/g, ""); // faqat 0-9 qoldiradi
+
+  if (num === "") {
+    setValue22("");
+    return;
+  }
+
+  // 100 dan oshmasin
+  if (parseInt(num, 10) > 100) {
+    num = "100";
+  }
+
+  // Oxiriga % qo'shamiz
+  setValue22(num + "%");
+    
   };
 
 
@@ -130,7 +176,7 @@ function Test() {
             </li>
           </ul>
       {tanlov === "a" && (
-        <>
+        <span className='select_fan'>
           <h3>DTM testi</h3>
           <label>1-Fan:</label>
           <span>
@@ -151,15 +197,17 @@ function Test() {
           type="checkbox"
           checked={sertifikatBor1}
           onChange={(e) => setSertifikatBor1(e.target.checked)}
+          
         />
         Sertifikat
 
         {/* Faqat checkbox tanlanganda chiqadi */}
         {sertifikatBor1 && (
           <input
-            type="number"
+            
             placeholder="%"
-            style={{ marginLeft: "10px", width: "80px" }}
+            onChange={handleChange1}
+            value={value11}
           />
         )}
       </span>
@@ -195,18 +243,24 @@ function Test() {
         {/* Faqat checkbox tanlanganda chiqadi */}
         {sertifikatBor2 && (
           <input
-            type="number"
+            
             placeholder="%"
-            style={{ marginLeft: "10px", width: "80px" }}
+            onChange={handleChange2}
+            value={value22}
           />
         )}
       </span>
           </span>
-        </>
+          <label>Test Kuni:</label>
+          <select>
+            <option>15-avgust 15:00</option>
+            <option>25-avgust 09:00</option>
+          </select>
+        </span>
       )}
 
       {tanlov === "b" && (
-        <>
+        <span className='select_fan'>
           <h3>Milliy Sertifikat testi</h3>
           <label>Fan tanlang:</label>
           
@@ -220,12 +274,17 @@ function Test() {
             <option>Geografiya</option>
             <option>Русский язык и литература</option>
             </select>
+            <label>Test Kuni:</label>
+          <select>
+            <option>15-avgust 15:00</option>
+            <option>25-avgust 09:00</option>
+          </select>
           
-        </>
+        </span>
       )}
 
       {tanlov === "c" && (
-        <>
+        <span className='select_fan'>
           <h3>Atestatsiya testi</h3>
           <label>Fan tanlang:</label>
           
@@ -240,16 +299,17 @@ function Test() {
             <option>Huquq</option>
             <option>Geografiya</option>
             </select>
-        </>
-      )}
-
-        
-
-          <label for='kun'>Test Kuni:</label>
+          <label>Test Kuni:</label>
           <select>
             <option>15-avgust 15:00</option>
             <option>25-avgust 09:00</option>
           </select>
+        </span>
+      )}
+
+        
+
+          
 
 
 
@@ -264,40 +324,44 @@ function Test() {
           </ul>
           {tanlov2 === "naxt" && (
         <>
-          <p>
+          <p className='text_info'>
             Naxt pullar Ofisda qabul qilinadi.<br/>
-
             Mo'ljal: Yangiariq tumani Tibbiyot birlashmasi yonida.<br/>
             Murojaat uchun tel: +998991234567
-
           </p>
         </>)}
         {tanlov2 === "plastik" && (
         <>
-          <p>
+          <p className='text_info'>
             Etiborli bo'ling!<br/>
             Dastlab mablag'ni o'tkazing. So'ng chekni faylini yuklang!!
 
             <br/>
 
-            Karta: <span style={{ padding: "20px" }}>
+            Karta: <span style={{ padding: "7px"}} >
       <span
         style={{
           display: "inline-block",
-          padding: "8px 12px",
+          padding: "6px 10px",
           background: "#f0f0f0",
-          borderRadius: "5px",
-          marginRight: "10px"
+          borderRadius: "10px",
+          marginRight: "10px",
+          cursor: "pointer" 
         }}
-      >
+       onClick={nusxalash}>
         {matn}
+        <BsCopy style={{ marginLeft: "3px", transform: "translateY(2px)" }} />
+
       </span>
-      <button type='button' onClick={nusxalash}>📋 Nusxalash</button>
+      
     </span>
 
             <br/>
             <label>Chekni yuklang:</label>
-            <input type='file' placeholder="Chekni yuklang"/><br/>
+            <label class="custom-btn">
+            Fayl tanlash
+            <input type="file" className="hidden-file" onChange="alert(this.files[0].name)"/>
+            </label><br/>
             Murojaat uchun tel: +998991234567
             <br/>
 
