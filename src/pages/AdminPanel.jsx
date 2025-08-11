@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './adminCss.css';
 import { BsTrash3 } from "react-icons/bs";
 import { BsCheckCircle } from "react-icons/bs";
@@ -6,6 +6,19 @@ import { BsCheckCircleFill } from "react-icons/bs";
 
 
 export default function AdminPanel({ onLogout }) {
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/registrations")
+      .then(res => res.json())
+      .then(data => setData(data))
+      .catch(err => console.error("Xato:", err));
+  }, []);
+
+
+
+
    const [activeTab, setActiveTab] = useState("oquvchilar"); // default
 
    const buttonStyle = (tab) => ({
@@ -74,6 +87,28 @@ export default function AdminPanel({ onLogout }) {
                 <th>To'lov</th>
                 <th>Holati</th>
               </tr>
+              {data.map((row) => (
+            <tr key={row.id}>
+              <td>{row.id}</td>
+              <td>{row.ism} {row.familiya}</td>
+              <td>{row.telefon}</td>
+              <td>{row.test_type}</td>
+              <td>{row.test_type === "dtm" ? (
+  <>
+    1. {row.fan1} {row.fan1_foiz !== null ? `(${row.fan1_foiz})` : ""}
+    <br />
+    2. {row.fan2} {row.fan2_foiz !== null ? `(${row.fan2_foiz})` : ""}
+  </>
+) : (
+  row.fan1
+)}
+            </td>
+              <td>{row.test_kuni}</td>
+              <td>{row.tolov_turi}</td>
+              <td>{row.position===0?<BsCheckCircleFill/>:<BsCheckCircle/>}</td>
+              
+            </tr>
+          ))}
               <tr>
                 <td>1</td>
                 <td>Dilshodbek Bahodirov</td>

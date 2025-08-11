@@ -2,12 +2,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import Home from './pages/Home';
 import Students from './pages/Students';
-import Test from './pages/Test';
 import Footer from './companent/Footer';
 import Navbar from './companent/Navbar';
 import ScrollToTop from './companent/ScrollToTop';
 import LoginPage from './pages/LoginPage';
 import AdminPanel from './pages/AdminPanel';
+import Form from './pages/Test';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/students" element={<Students />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/test" element={<Form />} />
 
         {/* Admin yo‘li */}
         <Route
