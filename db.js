@@ -7,6 +7,8 @@ const db = mysql.createConnection({
   database: "registration_db"
 });
 
+
+
 db.connect((err) => {
   if (err) {
     console.error("❌ MySQL ulanishida xatolik:", err);

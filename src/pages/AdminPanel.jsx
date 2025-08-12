@@ -3,20 +3,55 @@ import './adminCss.css';
 import { BsTrash3 } from "react-icons/bs";
 import { BsCheckCircle } from "react-icons/bs";
 import { BsCheckCircleFill } from "react-icons/bs";
-
+import axios from "axios";
 
 export default function AdminPanel({ onLogout }) {
 
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
+const [open, setOpen] = useState(false)
+
+const [data, setData] = useState([]);
+
+  // Ma'lumotlarni olish
+  const fetchData = () => {
     fetch("http://localhost:5000/registrations")
       .then(res => res.json())
       .then(data => setData(data))
       .catch(err => console.error("Xato:", err));
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
+const deleteRegistration = (id) => {
+    if (window.confirm("Rostdan ham o‘chirmoqchimisiz?")) {
+      fetch(`http://localhost:5000/registrations/${id}`, {
+        method: "DELETE",
+      })
+        .then(res => res.json())
+        .then(() => {
+          fetchData(); // Jadvalni yangilash
+        })
+        .catch(err => console.error("O‘chirishda xatolik:", err));
+    }
+  };
 
+  const togglePosition = (id, currentPosition) => {
+  const newPosition = currentPosition === "0" ? 1 : 0;
+
+  fetch(`http://localhost:5000/registrations/${id}/position`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ position: newPosition })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data.message);
+      fetchData(); // yangilangan ma'lumotlarni qayta olish
+    })
+    .catch(err => console.error("Position toggle xatolik:", err));
+};
 
 
    const [activeTab, setActiveTab] = useState("oquvchilar"); // default
@@ -32,8 +67,80 @@ export default function AdminPanel({ onLogout }) {
     fontSize: "1.3rem"
     
   });
+
+
+
+
+
+
+
+
+
+
+  const [form, setForm] = useState({ yonalish: "", kun: "", soat: "" });
+  const [darslar, setDarslar] = useState([]);
+
+  // Ma’lumotlarni serverdan olish
+  const getDarslar = () => {
+    fetch("http://localhost:5000/darslar")
+      .then(res => res.json())
+      .then(data => setDarslar(data))
+      .catch(err => console.error("Xato:", err));
+  };
+
+  useEffect(() => {
+    getDarslar(); // komponent yuklanganda chaqiriladi
+  }, []);
+
+  const handleChange2 = e => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit2 = e => {
+    e.preventDefault();
+    fetch("http://localhost:5000/darslar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Qo‘shildi:", data);
+        getDarslar(); // Yangi dars qo‘shilganda ro‘yxatni yangilash
+        setForm({ yonalish: "", kun: "", soat: "" }); // Forma bo‘shatish
+      })
+      .catch(err => console.error("Xato:", err));
+      setOpen(false);
+  };
+
+const handleDelete = (id) => {
+    if (window.confirm("Rostan ham o‘chirmoqchimisiz?")) {
+      fetch(`http://localhost:5000/darslar/${id}`, {
+        method: "DELETE"
+      })
+        .then(res => res.json())
+        .then(() => getDarslar())
+        .catch(err => console.error("O‘chirishda xato:", err));
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
-    
+    <>
     <div style={{ display: "flex", height: "100vh", paddingTop: "13vh" }}>
       {/* Chap panel */}
       <div style={{
@@ -105,27 +212,23 @@ export default function AdminPanel({ onLogout }) {
             </td>
               <td>{row.test_kuni}</td>
               <td>{row.tolov_turi}</td>
-              <td>{row.position===0?<BsCheckCircleFill/>:<BsCheckCircle/>}</td>
+              <td>{row.position === "0"
+      ? <BsCheckCircleFill className="tasdiq" onClick={() => togglePosition(row.id, row.position)}/>
+      : <BsCheckCircle className="tasdiq2" onClick={() => togglePosition(row.id, row.position)}/>
+    }
+                <BsTrash3 onClick={() => deleteRegistration(row.id)} className="deletee"/>
+                </td>
               
             </tr>
           ))}
-              <tr>
-                <td>1</td>
-                <td>Dilshodbek Bahodirov</td>
-                <td>+998999662636</td>
-                <td>Milliy sertifikat</td>
-                <td>Matematika</td>
-                <td>23-avgust</td>
-                <td>Chek</td>
-                <td> <BsCheckCircleFill className="tasdiq"/> <BsTrash3 className="deletee"/></td>
-              </tr>
+              
             </table>          
           </div>
         )}
         {activeTab === "testKuni" && (
           <div>
             <h1 style={{display: "inline-block"}}>Test kunlari</h1>
-            <button style={{float: "right"}}>Qo'shish</button>
+            <button style={{float: "right"}}  onClick={() => setOpen(true)}>Qo'shish</button>
             <table>
               <tr>
                 
@@ -134,22 +237,91 @@ export default function AdminPanel({ onLogout }) {
                 <th>Soat</th>
                 <th>Holati</th>
               </tr>
-              <tr>
-                <td>DTM</td>
-                <td>23-avgust</td>
-                <td>15:00</td>
-                <td><BsTrash3 className="deletee"/></td>
-              </tr>
-              <tr>
-                <td>Milliy Sertifikat</td>
-                <td>25-avgust</td>
-                <td>09:00</td>
-                <td><BsTrash3 className="deletee"/></td>
-              </tr>
+              {darslar.map(d => (
+            <tr key={d.id}>
+              <td>{d.yonalish}</td>
+              <td>{d.kun}</td>
+              <td>{d.soat}</td>
+              <td><BsTrash3 className="deletee" onClick={() => handleDelete(d.id)}/></td>
+            </tr>
+          ))}
+              
             </table>
+            
           </div>
         )}
       </div>
     </div>
+    {open && (
+        <div  style={{
+          position: "fixed",
+          top: 0, left: 0,
+          zIndex: 100,
+          width: "100%", height: "100%",
+          background: "rgba(0,0,0,0.5)",
+          display: "flex", justifyContent: "center", alignItems: "center"
+        }}>
+          <div  style={{
+            background: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            width: "300px",
+            textAlign: "center"
+          }}>
+            <h3>Yangi test kuni qo‘shish</h3>
+            <form className="madalcha" onSubmit={handleSubmit2}>
+              <select name="yonalish"
+                  
+                  value={form.yonalish}
+                  onChange={handleChange2}
+                  required>
+              <option value="" selected hidden>Yo'nalish</option>
+              <option>DTM</option>
+              <option>Milliy</option>
+              <option>Atestatsiya</option>
+              </select>
+              <span>
+              <input type="date" required style={{marginRight: "10px"}} name="kun"
+          value={form.kun}
+          onChange={handleChange2}
+          />
+              <input type="time"  required name="soat"
+          value={form.soat}
+          onChange={handleChange2}/>
+              </span>
+              <div style={{ marginTop: "15px" }}>
+              <button
+                style={{
+                  padding: "8px 15px",
+                  background: "#4caf50",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  marginRight: "10px"
+                }}
+                type="submit"
+              >
+                Saqlash
+              </button>
+              <button
+                style={{
+                  padding: "8px 15px",
+                  background: "red",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px"
+                }}
+                onClick={() => setOpen(false)}
+              >
+                Bekor qilish
+              </button>
+            </div>
+            </form>
+
+            
+          </div>
+        </div>
+      )}
+    </>
   );
 }

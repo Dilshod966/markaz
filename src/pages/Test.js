@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from "react";
 import { BsCopy } from 'react-icons/bs';
 import axios from 'axios';
 import '../App.css';
@@ -49,7 +49,7 @@ const Form = () => {
     formData.append('fan1_foiz', value11);
     formData.append('fan2', form.fan2 || '');
     formData.append('fan2_foiz', value22);
-    formData.append('test_kuni', form.test_kuni || '');
+    formData.append('test_kuni', form.test_kuni);
     formData.append('tolov_turi', tanlov2);
     if (file) formData.append('chek', file);
     formData.append('position', 0);
@@ -66,6 +66,48 @@ const Form = () => {
 
     }
   };
+
+
+
+  const [kod, setKod] = useState(""); // yangi state
+
+  // tanlov o'zgarsa, kod avtomatik o'zgaradi
+  useEffect(() => {
+    if (tanlov === "a") {
+      setKod("DTM");
+    } else if (tanlov === "b") {
+      setKod("Milliy");
+    } else if (tanlov === "c") {
+      setKod("Atestatsiya");
+    } else {
+      setKod("all");
+    }
+  }, [tanlov]);
+
+
+
+
+ 
+ const [darslar, setDarslar] = useState([]);
+ 
+   // Ma’lumotlarni serverdan olish
+   const getDarslar = () => {
+     fetch("http://localhost:5000/darslar")
+       .then(res => res.json())
+       .then(data => setDarslar(data))
+       .catch(err => console.error("Xato:", err));
+   };
+ 
+   useEffect(() => {
+     getDarslar(); // komponent yuklanganda chaqiriladi
+   }, []);
+
+
+
+
+
+
+
 
   return (
 
@@ -280,11 +322,7 @@ const Form = () => {
               )}
             </span>
           </span>
-          <label>Test Kuni:</label>
-          <select name="test_kuni" value={form.test_kuni} onChange={handleChange}>
-            <option>15-avgust 15:00</option>
-            <option>25-avgust 09:00</option>
-          </select>
+          
         </span>
       )}
       {tanlov === 'b' && (
@@ -301,11 +339,7 @@ const Form = () => {
             <option>Geografiya</option>
             <option>Русский язык и литература</option>
           </select>
-          <label>Test Kuni:</label>
-          <select name="test_kuni" value={form.test_kuni} onChange={handleChange}>
-            <option>15-avgust 15:00</option>
-            <option>25-avgust 09:00</option>
-          </select>
+          
         </span>
       )}
       {tanlov === 'c' && (
@@ -323,13 +357,18 @@ const Form = () => {
             <option>Huquq</option>
             <option>Geografiya</option>
           </select>
-          <label>Test Kuni:</label>
-          <select name="test_kuni" value={form.test_kuni} onChange={handleChange}>
-            <option>15-avgust 15:00</option>
-            <option>25-avgust 09:00</option>
-          </select>
         </span>
       )}
+      <label>Test Kuni:</label>
+          <select name="test_kuni" value={form.test_kuni} onChange={handleChange} required>
+            {darslar.map((d) => (
+                        kod == "all"? (<option key={d.id}>
+                          {d.kun} {d.soat.slice(0, 5)}
+                        </option>) : d.yonalish==kod?(<option key={d.id}>
+                          {d.kun} {d.soat.slice(0, 5)}
+                        </option>):console.log(d.yonalish)
+                      ))}
+          </select>
       <label>To'lov Turi:</label>
       <ul>
         <li>

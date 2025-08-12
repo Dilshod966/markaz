@@ -138,6 +138,100 @@ app.get("/registrations", (req, res) => {
 
 
 
+app.delete("/registrations/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = "DELETE FROM registrations WHERE id = ?";
+
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error("O‘chirishda xatolik:", err);
+      return res.status(500).json({ error: "O‘chirishda xatolik" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Ma'lumot topilmadi" });
+    }
+
+    res.json({ message: "Ma'lumot o‘chirildi" });
+  });
+});
+
+
+// Position ustunini yangilash
+app.put("/registrations/:id/position", (req, res) => {
+  const { id } = req.params;
+  const { position } = req.body;
+
+  db.query(
+    "UPDATE registrations SET position = ? WHERE id = ?",
+    [position, id],
+    (err, result) => {
+      if (err) {
+        console.error("❌ Xato:", err);
+        return res.status(500).json({ error: "Bazaga yozishda xato" });
+      }
+      res.json({ message: "✅ Position o‘zgartirildi", position });
+    }
+  );
+});
+
+
+
+
+
+
+
+
+const months = [
+  "yanvar", "fevral", "mart", "aprel", "may", "iyun",
+  "iyul", "avgust", "sentyabr", "oktyabr", "noyabr", "dekabr"
+];
+
+app.post("/darslar", (req, res) => {
+  let { yonalish, kun, soat } = req.body;
+
+  // kelgan sana formatini o‘zgartirish
+  const dateObj = new Date(kun);
+  const day = dateObj.getDate();
+  const monthName = months[dateObj.getMonth()];
+  const formattedDate = `${day}-${monthName}`; // masalan: 19-avgust
+
+  const sql = "INSERT INTO darslar (yonalish, kun, soat) VALUES (?, ?, ?)";
+  db.query(sql, [yonalish, formattedDate, soat], (err, result) => {
+    if (err) {
+      console.error("Qo‘shishda xato:", err);
+      return res.status(500).json({ error: "Ma’lumot qo‘shilmadi" });
+    }
+    res.json({ message: "Ma’lumot qo‘shildi", id: result.insertId });
+  });
+});
+
+// Ma’lumotlarni olish
+app.get("/darslar", (req, res) => {
+  db.query("SELECT * FROM darslar", (err, results) => {
+    if (err) {
+      console.error("Xato:", err);
+      return res.status(500).json({ error: "Ma’lumot olinmadi" });
+    }
+    res.json(results);
+  });
+});
+
+app.delete("/darslar/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = "DELETE FROM darslar WHERE id = ?";
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error("O‘chirishda xato:", err);
+      return res.status(500).json({ error: "O‘chirilmadi" });
+    }
+    res.json({ message: "O‘chirildi" });
+  });
+});
+
+
+
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
