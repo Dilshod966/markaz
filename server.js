@@ -182,29 +182,31 @@ app.put("/registrations/:id/position", (req, res) => {
 
 
 
-const months = [
-  "yanvar", "fevral", "mart", "aprel", "may", "iyun",
-  "iyul", "avgust", "sentyabr", "oktyabr", "noyabr", "dekabr"
-];
-
 app.post("/darslar", (req, res) => {
-  let { yonalish, kun, soat } = req.body;
+  let { yonalish, fanlar, kun, soat, narx } = req.body;
 
-  // kelgan sana formatini o‘zgartirish
+   if (!fanlar || fanlar.length === 0) {
+    fanlar = [null];
+    }
+  const months = [
+    "yanvar", "fevral", "mart", "aprel", "may", "iyun",
+    "iyul", "avgust", "sentyabr", "oktyabr", "noyabr", "dekabr"
+  ];
   const dateObj = new Date(kun);
-  const day = dateObj.getDate();
-  const monthName = months[dateObj.getMonth()];
-  const formattedDate = `${day}-${monthName}`; // masalan: 19-avgust
+  const formattedDate = `${dateObj.getDate()}-${months[dateObj.getMonth()]}`;
 
-  const sql = "INSERT INTO darslar (yonalish, kun, soat) VALUES (?, ?, ?)";
-  db.query(sql, [yonalish, formattedDate, soat], (err, result) => {
+  let sql = "INSERT INTO darslar (yonalish, fan, kun, soat, narx) VALUES ?";
+  let values = fanlar.map(fan => [yonalish, fan, formattedDate, soat, narx]);
+
+  db.query(sql, [values], (err, result) => {
     if (err) {
-      console.error("Qo‘shishda xato:", err);
+      console.error("Xato:", err);
       return res.status(500).json({ error: "Ma’lumot qo‘shilmadi" });
     }
-    res.json({ message: "Ma’lumot qo‘shildi", id: result.insertId });
+    res.json({ message: "Barcha fanlar qo‘shildi", count: result.affectedRows });
   });
 });
+
 
 // Ma’lumotlarni olish
 app.get("/darslar", (req, res) => {
@@ -217,6 +219,7 @@ app.get("/darslar", (req, res) => {
   });
 });
 
+// Ma’lumot o‘chirish
 app.delete("/darslar/:id", (req, res) => {
   const { id } = req.params;
   const sql = "DELETE FROM darslar WHERE id = ?";
@@ -231,6 +234,76 @@ app.delete("/darslar/:id", (req, res) => {
 
 
 
+
+function convertUzbDateToDateObj(dateStr) {
+  // dateStr: "6-avgust 18:16" yoki "6-avgust"
+  const [dayMonth] = dateStr.split(" "); // faqat "6-avgust"
+  const [day, monthName] = dayMonth.split("-");
+  const uzbMonthMap = {
+    "yanvar": 0, "fevral": 1, "mart": 2, "aprel": 3,
+    "may": 4, "iyun": 5, "iyul": 6, "avgust": 7,
+    "sentyabr": 8, "oktyabr": 9, "noyabr": 10, "dekabr": 11
+  };
+  const month = uzbMonthMap[monthName.toLowerCase()];
+  if (month === undefined) return null;
+  const year = new Date().getFullYear();
+  return new Date(year, month, parseInt(day, 10));
+}
+app.delete("/clear-old-darslar", (req, res) => {
+  const table = "darslar";
+  const column = "kun";
+
+  db.query(`SELECT id, ${column} FROM \`${table}\``, (err, rows) => {
+    if (err) return res.status(500).json({ message: "Server xatosi" });
+
+    const today = new Date();
+    const idsToDelete = [];
+
+    rows.forEach(row => {
+      const rowDate = convertUzbDateToDateObj(row[column]);
+      if (!rowDate) return;
+      if (rowDate < today) idsToDelete.push(row.id);
+    });
+
+    if (idsToDelete.length === 0) return res.json({ message: "O‘chirildi: 0 ta yozuv" });
+
+    const deleteSql = `DELETE FROM \`${table}\` WHERE id IN (${idsToDelete.join(",")})`;
+    db.query(deleteSql, (err, result) => {
+      if (err) return res.status(500).json({ message: "Server xatosi" });
+      res.json({ message: `O‘chirildi: ${result.affectedRows} ta yozuv` });
+    });
+  });
+});
+
+
+// registrations uchun
+app.delete("/clear-old-registrations", (req, res) => {
+  const table = "registrations";
+  const column = "test_kuni";
+
+  db.query(`SELECT id, ${column} FROM \`${table}\``, (err, rows) => {
+    if (err) return res.status(500).json({ message: "Server xatosi" });
+
+    const today = new Date();
+    const idsToDelete = [];
+
+    rows.forEach(row => {
+  const rowDate = convertUzbDateToDateObj(row[column]);
+  if (!rowDate) return;
+  if (rowDate < today) idsToDelete.push(row.id);
+});
+    if (idsToDelete.length === 0) return res.json({ message: "O‘chirildi: 0 ta yozuv" });
+
+    const deleteSql = `DELETE FROM \`${table}\` WHERE id IN (${idsToDelete.join(",")})`;
+    db.query(deleteSql, (err, result) => {
+      if (err) return res.status(500).json({ message: "Server xatosi" });
+      res.json({ message: `O‘chirildi: ${result.affectedRows} ta yozuv` });
+    });
+  });
+});
+
+
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // Start server
 app.listen(port, () => {
