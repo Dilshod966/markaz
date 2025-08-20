@@ -256,7 +256,7 @@ function exportToExcel(rows) {
 
   return (
     <>
-    <div style={{ display: "flex", height: "100vh", paddingTop: "13vh" }}>
+    <div style={{ display: "flex", paddingTop: "13vh" }}>
       {/* Chap panel */}
       <div style={{
         width: "20vw",

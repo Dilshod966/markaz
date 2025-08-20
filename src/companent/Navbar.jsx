@@ -30,9 +30,9 @@ function Navbar() {
         <li><Link to="/"><img src={logo} alt='logo'/></Link></li>
         <div>
             <li><Link to="/">Bosh sahifa</Link></li>
-            <li><Link to="/students">O‘quvchilar</Link></li>
-            <li><Link to="/about">Biz Haqimizda</Link></li>
-            <li><Link to="/test" className='tugma'>Diagnostik Test</Link></li>
+            <li><Link to="/">O‘quvchilar</Link></li>
+            <li><Link to="/">Biz Haqimizda</Link></li>
+            <li><Link to="/test" className='tugma' id='tugma_tekis'>Diagnostik Test</Link></li>
         </div>
         
       </ul>

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { BsCopy } from 'react-icons/bs';
 import axios from 'axios';
 import '../App.css';
+import ModalRuxsatnoma from "../companent/ModalRuxsatnoma";
+import ScrollToTop from "../companent/ScrollToTop";
 const Form = () => {
   const [form, setForm] = useState({
     ism: '',
@@ -20,13 +22,16 @@ const Form = () => {
   const [value22, setValue22] = useState('');
   const [matn] = useState('8600 1234 5678 9012'); // Example card number
   const [file, setFile] = useState(null);
-
+ const [modalOpen, setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
   
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleChange1 = (e) => {
+    
     setValue11(e.target.value);
   };
 
@@ -39,32 +44,50 @@ const Form = () => {
     alert('Karta raqami nusxalandi!');
   };
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitted(true);
     const formData = new FormData();
-    formData.append('ism', form.ism);
-    formData.append('familiya', form.familiya);
-    formData.append('telefon', form.telefon);
-    formData.append('test_type', tanlov === 'a' ? 'dtm' : tanlov === 'b' ? 'milliy' : 'atestatsiya');
-    formData.append('fan1', form.fan);
-    formData.append('fan1_foiz', value11);
-    formData.append('fan2', form.fan2 || '');
-    formData.append('fan2_foiz', value22);
-    formData.append('test_kuni', form.test_kuni);
-    formData.append('tolov_turi', tanlov2);
-    if (file) formData.append('chek', file);
-    formData.append('position', 0);
+    formData.append("ism", form.ism);
+    formData.append("familiya", form.familiya);
+    formData.append("telefon", form.telefon);
+    formData.append(
+      "test_type",
+      tanlov === "a" ? "dtm" : tanlov === "b" ? "milliy" : "atestatsiya"
+    );
+    formData.append("fan1", form.fan);
+    formData.append("fan1_foiz", value11);
+    formData.append("fan2", form.fan2 || "");
+    formData.append("fan2_foiz", value22);
+    formData.append("test_kuni", form.test_kuni);
+    formData.append("tolov_turi", tanlov2);
+    if (file) formData.append("chek", file);
+    formData.append("position", 0);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/register', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      await axios.post("http://localhost:5000/api/register", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
-      alert('Registration successful!');
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('Error submitting form');
 
+      // ✅ Faqat formadagi ma’lumotdan obyekt tuzamiz
+      const ruxsatData = {
+        yonalish: tanlov === "a" ? "DTM" : tanlov === "b" ? "Milliy sertifikat" : "Atestatsiya",
+        ismFam: `${form.ism} ${form.familiya}`,
+        tel: form.telefon,
+        tolov: tanlov2 === "naxt" ? "Naqd to‘lov" : "Plastik orqali",
+        fan1: form.fan + (value11 ? ` (${value11}%)` : ""),
+        fan2: form.fan2 ? form.fan2 + (value22 ? ` (${value22}%)` : "") : "",
+        vaqt: form.test_kuni,
+      };
+
+      setModalData(ruxsatData);
+      setModalOpen(true); // ✅ Modal ochiladi
+      
+      handleReset();
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form");
     }
   };
 
@@ -154,6 +177,7 @@ function handleReset() {
   setValue11("");
   setValue22("");
   setFile(null);
+  setSubmitted(false);
 }
 
 
@@ -562,9 +586,16 @@ function handleReset() {
 
       </span>
     </form>
+    
     </div>
-      
+      {submitted && <ScrollToTop />}
+      <ModalRuxsatnoma
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        data={modalData}
+      />
     </article>
+    
   );
 };
 

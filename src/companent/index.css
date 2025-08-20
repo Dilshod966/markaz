@@ -2,7 +2,7 @@ nav {
     height: 13vh;
     width: 100%;
     position: absolute;
-
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +10,7 @@ nav {
     font-weight: 600;
     font-size: 1.2rem;
     transition: 0.8s linear;
-    z-index: 1000;
+    
 }
 .scrolled {
     background-color: rgba(255, 255, 255, 0.685);
@@ -55,6 +55,8 @@ nav div li:nth-child(1) a:hover, nav div li:nth-child(2) a:hover,nav div li:nth-
 
 @import url('https://fonts.googleapis.com/css2?family=Lugrasimo&display=swap');
 footer {
+    position: relative;
+    z-index: 1;
     background-color: #0F2A47;
     padding: 2vh 10vw;
 }
@@ -122,3 +124,194 @@ footer iframe {
   50% { opacity: 0; }
 }
 
+
+
+
+.tumanka {
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 999;
+    border-radius: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.412);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ruxsatnoma {
+    color: rgb(5, 5, 110);
+    position: relative;
+    box-shadow: 0 0 25px 1px black;
+    width: 600px;
+    height: 800px;
+    border-radius: 0;
+    padding: 25px;
+    background-image: url("../images/rux_back.jpg");
+    background-color: rgba(255, 255, 255, 0.582); /* oq rang */
+    background-blend-mode: lighten; /* yoki overlay, screen, multiply */
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.ruxsatnoma span {
+    display: block;
+    width: 100%;
+}
+
+.rasm22 {
+    width: 100px;
+}
+
+.ruxsatnoma h1 {
+    margin-top: 5px;
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 5px;
+    font-size: 35px;
+    color: rgb(5, 5, 110);
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.63);
+}
+
+.ruxsatnoma h4 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 19px;
+    color: rgb(5, 5, 110);
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.63);
+}
+
+.ruxsatnoma h3 {
+    box-shadow: none;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgb(5, 5, 110);
+    letter-spacing: 2px;
+}
+
+
+.ruxsatnoma ul {
+    padding: 0 15px;
+}
+.ruxsatnoma ul li {
+    margin: 0;
+    margin-bottom: 10px;
+    
+   
+}
+
+.rux {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    width: 600px;
+    height: 800px;
+}
+
+.korsatkich {
+    transform: translateY(2px) translateX(-3px);
+}
+
+
+
+
+
+
+
+.icon-container div {
+    display: inline-block;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+.icon-container {
+    padding: 0;
+  position: absolute;
+  right: -55px;
+  top:30%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+  gap: 5px;
+border-radius: 0;
+box-shadow: none;
+}
+
+.icon-wrapper {
+  position: relative;
+  width: 150px;
+  text-align: end;
+}
+
+.icon-btn {
+margin-top: 7px;
+  background: #2563eb;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 65px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.icon-btn:hover {
+  background: #1d4ed8;
+  transform: scale(1.1);
+}
+
+.popover {
+    display: inline-block;
+    width: 100px;
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
+  z-index: 100;
+  
+}
+
+.popover p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #111;
+  font-weight: 500;
+}
+
+.popover-action {
+  background: #e6880e91;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 17px;
+  transform: translateY(-10px);
+  transition: background 0.2s;
+}
+
+.popover-action:hover {
+  background: #e6880ece;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
