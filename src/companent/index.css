@@ -16,6 +16,11 @@ nav {
     font-size: 40px;
 }
 
+
+
+.boxxx {
+    font-size: 2.3rem;
+}
 @media (min-width: 359px) and (max-width: 419px) {
     .rux {
         transform: scale(0.5);

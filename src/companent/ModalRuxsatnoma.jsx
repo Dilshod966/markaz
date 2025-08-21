@@ -1,6 +1,9 @@
 import rasm2 from "../images/logo.png"
 import { useState, useEffect } from "react";
-import { Upload, Share2, X } from "lucide-react";
+import { BsDownload } from "react-icons/bs";
+import { BsShare } from "react-icons/bs";
+import { BsXLg } from "react-icons/bs";
+
 import domtoimage from "dom-to-image";
 import { useRef } from "react";
 import { BsForward } from "react-icons/bs";
@@ -57,19 +60,19 @@ export default function ModalRuxsatnoma({ isOpen, onClose, data }) {
     { 
       id: 1, 
       label: "Yuklash", 
-      icon: <Upload size={22} />, 
+      icon: <BsDownload size={22} />, 
       onClick: handleDownload 
     },
     { 
       id: 2, 
       label: "Ulashish", 
-      icon: <Share2 size={22} />, 
+      icon: <BsShare size={22} />, 
       onClick: handleShare 
     },
     { 
       id: 3, 
       label: "Yopish", 
-      icon: <X size={22} />, 
+      icon: <BsXLg size={22} />, 
       onClick: onClose 
     },
   ];

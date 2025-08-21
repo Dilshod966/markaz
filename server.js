@@ -244,6 +244,7 @@ function convertUzbDateToDateObj(dateStr) {
     "may": 4, "iyun": 5, "iyul": 6, "avgust": 7,
     "sentyabr": 8, "oktyabr": 9, "noyabr": 10, "dekabr": 11
   };
+  
   const month = uzbMonthMap[monthName.toLowerCase()];
   if (month === undefined) return null;
   const year = new Date().getFullYear();

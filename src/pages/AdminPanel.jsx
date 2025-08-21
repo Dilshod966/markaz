@@ -451,7 +451,7 @@ function exportToExcel(rows) {
       background: "white", padding: "20px", borderRadius: "10px",
       width: "300px", textAlign: "center"
     }}>
-      <h3>Yangi test kuni qo‘shish</h3>
+      <h3 className="boxxx">Yangi test kuni qo‘shish</h3>
       <form className="madalcha" onSubmit={handleSubmit2}>
         <select
           name="yonalish"
