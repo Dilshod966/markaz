@@ -4,7 +4,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root", // MySQL user nomi
   password: "", // MySQL paroli (bo‘lsa kiriting)
-  database: "registration_db"
+  database: "donoziyo_base"
 });
 
 
