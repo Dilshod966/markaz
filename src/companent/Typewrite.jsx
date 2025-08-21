@@ -48,7 +48,7 @@ const Typewriter = () => {
   }, [subIndex, index, deleting]);
 
   return (
-    <h2 style={{ fontFamily: 'monospace' , fontSize: 40}}>
+    <h2 style={{ fontFamily: 'monospace'}} className="matnlarr">
       {text}
       <span className="cursor">|</span>
     </h2>

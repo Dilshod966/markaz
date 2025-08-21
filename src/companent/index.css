@@ -12,6 +12,204 @@ nav {
     transition: 0.8s linear;
     
 }
+.matnlarr {
+    font-size: 40px;
+}
+
+@media (min-width: 359px) and (max-width: 419px) {
+    .rux {
+        transform: scale(0.5);
+    }
+    main {
+        padding-top: 25vw;
+        height: 75vh;
+    }
+    .matnlarr {
+        font-size: 15px;
+    }
+    .tugma { 
+    padding: 2px 6px;
+    font-size: 1rem;
+    color: white;
+    }
+    nav {
+        padding: 0;
+    }
+    nav li{
+        margin-left: 0;
+    }
+    .login_joy {
+  padding: 27vw;
+    }
+  
+
+
+.login_joy form {
+  height: 200px;
+  border: 2px dotted #24B39C;
+  width: 50vw;
+  border-radius: 15px;
+}
+.login_joy h1 {
+    font-size: 15px;
+
+    }
+}
+
+
+@media (min-width: 420px) and (max-width: 600px) {
+    nav {
+      padding: 0 ;
+    }
+    main {
+        padding-top: 20vw;
+        height: 85vh;
+    }
+    .matnlarr {
+        font-size: 20px;
+    }
+    .rux {
+        transform: scale(0.6);
+    }
+    .tugma { 
+    padding: 3px 8px;
+    font-size: 1.1rem;
+    color: white;
+    }
+    .login_joy {
+  padding: 25vw;
+    }
+  
+
+
+.login_joy form {
+  height: 200px;
+  border: 2px dotted #24B39C;
+  width: 50vw;
+  border-radius: 15px;
+}
+.login_joy h1 {
+    font-size: 18px;
+
+    }
+    
+    
+}
+
+@media (min-width: 601px) and (max-width: 950px) {
+    .matnlarr {
+        font-size: 23px;
+    }
+    main {
+        padding-top: 16vw;
+    }
+    .rux {
+        transform: scale(0.8);
+    }
+    .tugma { 
+    padding: 5px 10px 5px 10px;
+    font-size: 1.2rem;
+    color: white;
+    }
+    .login_joy {
+  padding: 20vw;
+    }
+  
+
+
+.login_joy form {
+  height: 300px;
+  border: 3px dotted #24B39C;
+  width: 50vw;
+  border-radius: 25px;
+}
+.login_joy h1 {
+    font-size: 25px;
+
+    }
+}
+
+@media (max-width: 950px) {
+    nav ul div li:nth-child(1){
+       display: none;
+    }
+    nav ul div li:nth-child(2){
+       display: none;
+    }
+    nav ul div li:nth-child(3){
+       display: none;
+    }
+    nav ul div li:nth-child(4){
+       margin-right: 10px;
+    }
+    
+}
+ @media (min-width: 951px) and (max-width: 1305px) {
+    .login_joy {
+  padding: 16vw;
+  
+  
+}
+
+.login_joy form {
+  height: 300px;
+  border: 3px dotted #24B39C;
+  width: 40vw;
+  border-radius: 25px;
+}
+.login_joy h1 {
+    font-size: 30px;
+}
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.subject-info {
+position: absolute;
+  margin-top: 10px;
+  
+  font-size: 0.8rem;
+  top: 100px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  min-width: 170px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .scrolled {
     background-color: rgba(255, 255, 255, 0.685);
     position: fixed;
@@ -69,7 +267,7 @@ footer ol {
 
 
 footer ol li:nth-child(1) img {
-    width: 25vh;
+    width: 20vw;
 }
 footer li:nth-child(2) {
     font-family: "Lugrasimo", cursive;
@@ -111,6 +309,41 @@ footer iframe {
 
 
 
+@media (max-width: 600px) {
+    
+    .btr2 {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 3rem;
+    }
+    footer {
+    padding: 1rem 1.8rem;
+}
+.btr2 span {
+    width: 50vw;
+}
+footer iframe{
+    width: 90%;
+    height: 20rem;
+}
+.icon-style {
+    margin-right: 5px;
+}
+.btr2 div:nth-child(1){
+    display: flex;
+    width: 35vw;
+    flex-direction: column;
+    margin-top: 10px;
+    padding-left: 2rem;
+    
+}
+
+.btr2 div:nth-child(2) {
+    width: 64vw;
+}
+}
+
+
 
 
 
@@ -118,6 +351,7 @@ footer iframe {
   display: inline-block;
   animation: blink 1s infinite;
 }
+
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
@@ -155,6 +389,7 @@ footer iframe {
     background-blend-mode: lighten; /* yoki overlay, screen, multiply */
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    font-size: 16px;
 }
 .ruxsatnoma span {
     display: block;

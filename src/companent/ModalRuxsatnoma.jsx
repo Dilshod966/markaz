@@ -43,6 +43,7 @@ export default function ModalRuxsatnoma({ isOpen, onClose, data }) {
 
   // tashqariga bosilganda yopilish uchun
   useEffect(() => {
+    
     const handleClickOutside = (e) => {
       if (!e.target.closest(".icon-wrapper")) {
         setActive(null);

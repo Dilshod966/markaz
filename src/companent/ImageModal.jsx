@@ -15,8 +15,8 @@ export default function ImageModal({ src, alt }) {
         onClick={() => setOpen(true)}
         style={{
           cursor: "zoom-in",
-          maxHeight: "50px",
-          borderRadius: "5px",
+          maxHeight: "3rem",
+          borderRadius: "0.31rem",
         }}
       />
 
@@ -42,12 +42,12 @@ export default function ImageModal({ src, alt }) {
                 top: "-20px",
                 right: "-40px",
                 opacity: "0.7",
-                padding: "5px 15px",
+                padding: "0.31rem 1rem",
                 background: "white",
                 border: "none",
                 borderRadius: "45px",
                 cursor: "pointer",
-                fontSize: "35px",
+                fontSize: "2.18rem",
                 textAlign: "center",
 
                 color: "black",
@@ -62,7 +62,7 @@ export default function ImageModal({ src, alt }) {
               style={{
                 maxWidth: "90vw",
                 maxHeight: "90vh",
-                borderRadius: "25px",
+                borderRadius: "1.56rem",
                 background: "white",
               }}
             />

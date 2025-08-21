@@ -36,7 +36,6 @@
 .subject-info {
 position: absolute;
   margin-top: 10px;
-  
   font-size: 0.8rem;
   top: 100px;
   padding: 10px 15px;
@@ -44,4 +43,43 @@ position: absolute;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   transition: all 0.3s ease;
   min-width: 170px;
+}
+
+
+@media (min-width: 359px) and (max-width: 419px) {
+    
+    .subjects-container {
+    width: 95%;
+    gap: 5px;
+    padding: 10px;
+}
+.circle {
+  width: 60px;
+  height: 60px;
+}
+}
+
+@media (min-width: 420px) and (max-width: 600px) {
+    .subjects-container {
+    width: 85%;
+    gap: 10px;
+    padding: 15px;
+}
+.circle {
+  width: 70px;
+  height: 70px;
+}
+}
+
+@media (min-width: 601px) and (max-width: 950px) {
+    .subjects-container {
+    width: 75%;
+    gap: 15px;
+    padding: 20px;
+    }
+    .circle {
+    width: 90px;
+    height: 90px;
+    }
+    
 }

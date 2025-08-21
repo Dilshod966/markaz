@@ -15,8 +15,8 @@ function Footer() {
                 <li>Beshikdan qabirgacha ilm izla</li>
                 <li className='btr2'>
                     <div>
-                        <span><BsTelephone className="icon-style"/> +998999662636</span>
-                        <span><BsSend className="icon-style"/> @Dilshod2636</span>
+                        <span><BsTelephone className="icon-style"/> +998-93-284-10-05</span>
+                        <span><BsSend className="icon-style"/> @eshchanov_iskandar</span>
                         <span><BsAlarm className="icon-style"/> 09:00 / 18:00</span>
                         <span><BsHouseDoor className="icon-style"/> 22-son Maktab yonida</span>
                     </div>

@@ -45,6 +45,13 @@ const Form = () => {
   };
 
     const handleSubmit = async (e) => {
+      if (!canSubmit) {
+      alert("❌ 30 daqiqa o‘tmaguncha qayta yubora olmaysiz!");
+      return;
+      }
+
+    localStorage.setItem("lastSubmitTime", Date.now().toString());
+
     e.preventDefault();
     setSubmitted(true);
     const formData = new FormData();
@@ -63,7 +70,9 @@ const Form = () => {
     formData.append("tolov_turi", tanlov2);
     if (file) formData.append("chek", file);
     formData.append("position", 0);
+    if (submitted) {
 
+    }
     try {
       await axios.post("http://localhost:5000/api/register", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -97,6 +106,17 @@ const Form = () => {
 
   // tanlov o'zgarsa, kod avtomatik o'zgaradi
   useEffect(() => {
+    const lastSubmit = localStorage.getItem("lastSubmitTime");
+    if (lastSubmit) {
+      const now = Date.now();
+      const diff = now - parseInt(lastSubmit, 10);
+
+      if (diff < 30 * 60 * 1000) {
+        setCanSubmit(false); // hali 30 min o‘tmagan
+        setTimeout(() => setCanSubmit(true), 30 * 60 * 1000 - diff); 
+      }
+    }
+
     if (tanlov === "a") {
       setKod("DTM");
     } else if (tanlov === "b") {
@@ -108,7 +128,9 @@ const Form = () => {
     }
   }, [tanlov]);
 
+  const [canSubmit, setCanSubmit] = useState(true);
 
+ 
 
 
 
@@ -573,7 +595,7 @@ function handleReset() {
 )}
       <span className="tekislash2">
         <button className="tugma" type="submit">
-        Yuborish
+          Yuborish
         </button>
         <button 
   className="tugma" 

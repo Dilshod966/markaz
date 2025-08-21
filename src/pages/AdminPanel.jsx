@@ -3,7 +3,6 @@ import './adminCss.css';
 import { BsTrash3 } from "react-icons/bs";
 import { BsCheckCircle } from "react-icons/bs";
 import { BsCheckCircleFill } from "react-icons/bs";
-import axios from "axios";
 import { ClearDarslarButton } from "./ClearDarslarButton";
 import { ClearRegistrationsButton } from "./ClearRegistrationsButton";
 import ImageModal from "../companent/ImageModal";
@@ -76,9 +75,10 @@ const deleteRegistration = (id) => {
    const buttonStyle = (tab) => ({
     display: "block",
     width: "100%",
-    padding: "28px",
+    padding: "1.75rem",
     background: activeTab === tab ? "#24B39C" : "#fff",
     color: activeTab === tab ? "#fff" : "#000",
+    boxShadow: activeTab === tab ? "inset 0 0 1rem 0.1rem #086656ff" : "none",
     border: "none",
     cursor: "pointer",
     fontSize: "1.3rem"
@@ -256,34 +256,32 @@ function exportToExcel(rows) {
 
   return (
     <>
-    <div style={{ display: "flex", paddingTop: "13vh" }}>
+    <div className="admin_ota">
       {/* Chap panel */}
-      <div style={{
-        width: "20vw",
-        background: "#f0f0f0",
-        border: "1px solid #ccc"
-      }}>
+      <div className="admin_bola1">
         <button
           onClick={() => setActiveTab("oquvchilar")}
           style={buttonStyle("oquvchilar")}
+          id="bolim3"
         >
           O‘quvchilar
         </button>
         <button
           onClick={() => setActiveTab("testKuni")}
           style={buttonStyle("testKuni")}
+          id="bolim2"
         >
           Test kuni
         </button>
       </div>
 
       {/* O‘ng panel */}
-      <div className="adminSpiska">
+      <div className="adminSpiska admin_bola2">
         {activeTab === "oquvchilar" && (
           <div>
             <h1>O'quvchilar ro'yhati</h1>
-      <form className="tekislash" onSubmit={(e) => e.preventDefault()}>
-        <div className="tekislash">
+      <form className="tekislash form1" onSubmit={(e) => e.preventDefault()}>
+        <div className="tekislash form1">
           <input
             type="text"
             className="tugma2"

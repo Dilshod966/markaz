@@ -3,7 +3,10 @@
      
      
 }
-
+.admin_ota {
+        display: flex;
+        padding-top: 13vh;
+    }
 
 .adminSpiska table {
       width: 100%;
@@ -224,3 +227,136 @@ h1 {
     display: inline-block;
     
 }
+
+.admin_bola1 {
+    
+        width: 20vw;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+      
+    }
+
+
+
+ @media (min-width: 900px) and (max-width: 1520px) {
+    .admin_ota {
+        display: flex;
+        flex-direction: column;
+        padding-top: 13vh;
+    }
+    .admin_bola1 {
+        display: flex;
+        justify-content: flex-start;
+        width: 100vw;
+    }
+    .admin_bola2 {
+        width: 100vw;
+        padding: 20px;
+    }
+    .form1 {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-start;
+        float: none;
+    }
+    html {
+        font-size: 14px;
+    }
+    .adminSpiska  th, .adminSpiska td {
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+    
+ }
+  @media (min-width: 800px) and (max-width: 899px) {
+    .admin_ota {
+        display: flex;
+        flex-direction: column;
+        padding-top: 13vh;
+    }
+    .admin_bola1 {
+        display: flex;
+        justify-content: flex-start;
+        width: 100vw;
+    }
+    .admin_bola2 {
+        width: 100vw;
+        padding: 15px;
+    }
+    .form1 {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-start;
+        float: none;
+    }
+    html {
+        font-size: 12px;
+    }
+    .adminSpiska  th, .adminSpiska td {
+      padding-bottom: 6px;
+      padding-top: 6px;
+    }
+ }
+
+ @media (min-width: 600px) and (max-width: 800px) {
+    .admin_ota {
+        display: flex;
+        flex-direction: column;
+        padding-top: 13vh;
+    }
+    .admin_bola1 {
+        display: flex;
+        justify-content: flex-start;
+        width: 100vw;
+       
+    }
+    .admin_bola2 {
+        width: 100vw;
+         padding: 10px;
+    }
+    .form1 {
+        flex-wrap: wrap;
+        gap: 7px;
+        justify-content: flex-start;
+        float: none;
+    }
+    html {
+        font-size: 10px;
+    }
+    .adminSpiska  th, .adminSpiska td {
+      padding-bottom: 4px;
+      padding-top: 4px;
+    }
+ }
+
+ @media (max-width: 600px) {
+
+    .admin_ota {
+        display: flex;
+        flex-direction: column;
+        padding-top: 13vh;
+    }
+    .admin_bola1 {
+        display: flex;
+        justify-content: flex-start;
+        width: 100vw;
+       
+    }
+    .admin_bola2 {
+        width: 100vw;
+         padding: 8px;
+    }
+    .form1 {
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: flex-start;
+        float: none;
+    }
+    html {
+        font-size: 8px;
+    }
+    .adminSpiska  th, .adminSpiska td {
+      padding-bottom: 4px;
+      padding-top: 4px;
+    }
+ }
