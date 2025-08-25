@@ -74,7 +74,7 @@ const Form = () => {
 
     }
     try {
-      await axios.post("http://localhost:5000/api/register", formData, {
+      await axios.post("/api/register", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -145,7 +145,7 @@ const Form = () => {
  
    // Ma’lumotlarni serverdan olish
    const getDarslar = () => {
-     fetch("http://localhost:5000/darslar")
+     fetch("/darslar")
        .then(res => res.json())
        .then(data => setDarslar(data))
        .catch(err => console.error("Xato:", err));
@@ -517,11 +517,11 @@ function handleReset() {
   <p className="text_info">
     Naxt pullar Ofisda qabul qilinadi.
     <br />
-    {`${tanlanganDars.yonalish} bo'yicha testda qatnashish ${tanlanganDars.narx} so'm`}
+    {`${tanlanganDars.yonalish} bo'yicha testda qatnashish ${tanlanganDars.narx===0?"bepul": (tanlanganDars.narx + 'som')} `}
     <br />
     Mo'ljal: Yangiariq tumani Tibbiyot birlashmasi yonida.
     <br />
-    Murojaat uchun tel: +998991234567
+    Murojaat uchun tel: +998-93-284-10-05
   </p>
 )}
 

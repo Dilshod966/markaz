@@ -1,10 +1,10 @@
 const mysql = require("mysql2");
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root", // MySQL user nomi
-  password: "", // MySQL paroli (bo‘lsa kiriting)
-  database: "donoziyo_base"
+  host: "mysql-diagnostik.alwaysdata.net",
+  user: "427485", // MySQL user nomi
+  password: "Dilshod_572", // MySQL paroli (bo‘lsa kiriting)
+  database: "diagnostik_base"
 });
 
 

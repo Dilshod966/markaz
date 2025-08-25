@@ -22,7 +22,7 @@ const [data, setData] = useState([]);
 
   // Ma'lumotlarni olish
   const fetchData = () => {
-    fetch("http://localhost:5000/registrations")
+    fetch("/registrations")
       .then(res => res.json())
       .then(data => setData(data))
       .catch(err => console.error("Xato:", err));
@@ -34,7 +34,7 @@ const [data, setData] = useState([]);
 
 const deleteRegistration = (id) => {
     if (window.confirm("Rostdan ham o‘chirmoqchimisiz?")) {
-      fetch(`http://localhost:5000/registrations/${id}`, {
+      fetch(`/registrations/${id}`, {
         method: "DELETE",
       })
         .then(res => res.json())
@@ -48,7 +48,7 @@ const deleteRegistration = (id) => {
   const togglePosition = (id, currentPosition) => {
   const newPosition = currentPosition === "0" ? 1 : 0;
 
-  fetch(`http://localhost:5000/registrations/${id}/position`, {
+  fetch(`/registrations/${id}/position`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ position: newPosition })
@@ -106,7 +106,7 @@ const [darslar, setDarslar] = useState([]);
 
 
 const getDarslar = () => {
-  fetch("http://localhost:5000/darslar")
+  fetch("/darslar")
     .then(res => res.json())
     .then(data => setDarslar(data))
     .catch(err => console.error("Xato:", err));
@@ -133,7 +133,7 @@ const handleFanChange = (e) => {
 
 const handleSubmit2 = (e) => {
   e.preventDefault();
-  fetch("http://localhost:5000/darslar", {
+  fetch("/darslar", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(form)
@@ -149,7 +149,7 @@ const handleSubmit2 = (e) => {
 
 const handleDelete = (id) => {
   if (window.confirm("Rostan ham o‘chirmoqchimisiz?")) {
-    fetch(`http://localhost:5000/darslar/${id}`, {
+    fetch(`/darslar/${id}`, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -168,7 +168,7 @@ const handleDelete = (id) => {
 
 
 
-    const filteredData = data.filter((row) => {
+  const filteredData = data.filter((row) => {
   const ismFam = (row.ism + " " + row.familiya).toLowerCase();
   const telLast4 = row.telefon.slice(-4);
   const searchVal = searchName.toLowerCase();
@@ -367,7 +367,7 @@ function exportToExcel(rows) {
               <td>
                 {row.tolov_turi === "plastik" ? (
                   <ImageModal
-                    src={`uploads/${row.chek_path.split("\\")[1]}`}
+                    src={`uploads/${row.chek_path.split(/[/\\]/).pop()}`}
                     alt="Test rasm"
                   />
                 ) : (

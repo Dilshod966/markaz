@@ -10,7 +10,7 @@ export function ClearRegistrationsButton() {
     setLoading(true);
     setMessage("");
     try {
-      const res = await axios.delete("http://localhost:5000/clear-old-registrations");
+      const res = await axios.delete("/clear-old-registrations");
       setMessage(res.data.message);
 
       // 2 sekunddan so‘ng sahifani yangilash

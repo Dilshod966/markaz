@@ -23,10 +23,10 @@ const upload = multer({ storage });
 
 // MySQL connection pool
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '', // Replace with your MySQL pass word
-  database: 'registration_db',
+  host: "mysql-diagnostik.alwaysdata.net",
+  user: "427485", // MySQL user nomi
+  password: "Dilshod_572", // MySQL paroli (bo‘lsa kiriting)
+  database: "diagnostik_base",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

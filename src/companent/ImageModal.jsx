@@ -10,7 +10,7 @@ export default function ImageModal({ src, alt }) {
     <>
       {/* Kichik rasm */}
       <img
-        src={`http://localhost:5000/${fixedSrc}`}
+        src={`/${fixedSrc}`}
         alt={alt}
         onClick={() => setOpen(true)}
         style={{
@@ -57,7 +57,7 @@ export default function ImageModal({ src, alt }) {
               ×
             </button>
             <img
-              src={`http://localhost:5000/${fixedSrc}`}
+              src={`/${fixedSrc}`}
               alt={alt}
               style={{
                 maxWidth: "90vw",

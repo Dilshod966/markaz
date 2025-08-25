@@ -10,7 +10,7 @@ export function ClearDarslarButton() {
     setLoading(true);
     setMessage("");
     try {
-      const res = await axios.delete("http://localhost:5000/clear-old-darslar");
+      const res = await axios.delete("/clear-old-darslar");
       setMessage(res.data.message);
 
       // 2 sekunddan so‘ng sahifani yangilash
